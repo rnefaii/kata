@@ -15,13 +15,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Customer {
     @Id
     private String id;
-
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-
-    private String driverLicenseNumber;
-    private boolean active;
+    private String username;
 }
-
