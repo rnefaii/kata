@@ -1,6 +1,7 @@
 package com.carrefour.carservice.dto;
 
 public record LeasingContractDTO(
+        String id,
         String carId,
         String customerId,
         String startDate,
