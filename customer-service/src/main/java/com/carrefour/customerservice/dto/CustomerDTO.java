@@ -6,8 +6,12 @@ import lombok.Data;
 @Data
 @Builder
 public class CustomerDTO {
-    private String id;
-    private String brand;
-    private String model;
-    private boolean available;
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+
+    private String driverLicenseNumber;
+    private boolean active;
 }

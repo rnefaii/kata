@@ -26,21 +26,21 @@ public class CustomerController {
     }
 
     @GetMapping
-    @Operation(summary = "Get all cars")
+    @Operation(summary = "Get all customers")
     public List<CustomerDTO> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get car by ID")
+    @Operation(summary = "Get customer by ID")
     public CustomerDTO getCustomerById(@PathVariable String id) {
         return customerService.getCustomerById(id);
     }
 
     @PostMapping
-    @Operation(summary = "Create a new car")
-    public CustomerDTO createCustomer(@Valid @RequestBody CustomerDTO car) {
-        return customerService.createCustomer(car);
+    @Operation(summary = "Create a new customer")
+    public CustomerDTO createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+        return customerService.createCustomer(customerDTO);
     }
 
 }

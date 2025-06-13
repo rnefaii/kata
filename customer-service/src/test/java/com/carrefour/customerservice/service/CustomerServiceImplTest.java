@@ -35,9 +35,12 @@ public class CustomerServiceImplTest {
     void testGetAllCustomers() {
         Customer customer = Customer.builder()
                 .id("1")
-                .brand("Toyota")
-                .model("Yaris")
-                .available(true)
+                .email("rahma@gmail.com")
+                .phone("23021252")
+                .firstName("rahma")
+                .lastName("nefai")
+                .driverLicenseNumber("2525455")
+                .active(true)
                 .build();
 
         when(customerRepository.findAll()).thenReturn(List.of(customer));
@@ -45,7 +48,7 @@ public class CustomerServiceImplTest {
         var result = customerService.getAllCustomers();
 
         assertEquals(1, result.size());
-        assertEquals("Toyota", result.getFirst().getBrand());
+        assertEquals("23021252", result.getFirst().getPhone());
     }
 
     @Test
@@ -63,22 +66,29 @@ public class CustomerServiceImplTest {
     void testCreateCustomer() {
         Customer savedCustomer = Customer.builder()
                 .id("1")
-                .brand("Honda")
-                .model("Civic")
-                .available(true)
+                .email("rahma@gmail.com")
+                .phone("23021252")
+                .firstName("rahma")
+                .lastName("nefai")
+                .driverLicenseNumber("2525455")
+                .active(true)
                 .build();
 
         when(customerRepository.save(any())).thenReturn(savedCustomer);
 
         var customerDTO = CustomerDTO.builder()
-                .brand("Honda")
-                .model("Civic")
+                .email("rahma@gmail.com")
+                .phone("23021252")
+                .firstName("rahma")
+                .lastName("nefai")
+                .driverLicenseNumber("2525455")
+                .active(true)
                 .build();
 
         var result = customerService.createCustomer(customerDTO);
 
         assertNotNull(result);
-        assertEquals("Civic", result.getModel());
+        assertEquals("2525455", result.getDriverLicenseNumber());
         verify(customerRepository, times(1)).save(any());
     }
 
