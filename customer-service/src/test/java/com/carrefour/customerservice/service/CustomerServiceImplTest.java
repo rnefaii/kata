@@ -1,0 +1,85 @@
+package com.carrefour.customerservice.service;
+
+import com.carrefour.customerservice.dto.CustomerDTO;
+import com.carrefour.customerservice.exception.CustomerNotFoundException;
+import com.carrefour.customerservice.mapper.CustomerMapper;
+import com.carrefour.customerservice.mapper.CustomerMapperImpl;
+import com.carrefour.customerservice.model.Customer;
+import com.carrefour.customerservice.repository.CustomerRepository;
+import com.carrefour.customerservice.service.impl.CustomerServiceImpl;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+
+public class CustomerServiceImplTest {
+
+    private CustomerRepository customerRepository;
+    private CustomerServiceImpl customerService;
+
+    @BeforeEach
+    void setup() {
+        customerRepository = mock(CustomerRepository.class);
+        CustomerMapper customerMapper = new CustomerMapperImpl();
+        customerService = new CustomerServiceImpl(customerRepository, customerMapper);
+    }
+
+    @Test
+    void testGetAllCustomers() {
+        Customer customer = Customer.builder()
+                .id("1")
+                .brand("Toyota")
+                .model("Yaris")
+                .available(true)
+                .build();
+
+        when(customerRepository.findAll()).thenReturn(List.of(customer));
+
+        var result = customerService.getAllCustomers();
+
+        assertEquals(1, result.size());
+        assertEquals("Toyota", result.getFirst().getBrand());
+    }
+
+    @Test
+    void testGetCustomerById_NotFound_ThrowsException() {
+        when(customerRepository.findById("999")).thenReturn(Optional.empty());
+
+        var exception = assertThrows(CustomerNotFoundException.class, () -> customerService.getCustomerById("999"));
+
+        assertEquals("Customer with id 999 not found.", exception.getMessage());
+        verify(customerRepository, times(1)).findById("999");
+    }
+
+
+    @Test
+    void testCreateCustomer() {
+        Customer savedCustomer = Customer.builder()
+                .id("1")
+                .brand("Honda")
+                .model("Civic")
+                .available(true)
+                .build();
+
+        when(customerRepository.save(any())).thenReturn(savedCustomer);
+
+        var customerDTO = CustomerDTO.builder()
+                .brand("Honda")
+                .model("Civic")
+                .build();
+
+        var result = customerService.createCustomer(customerDTO);
+
+        assertNotNull(result);
+        assertEquals("Civic", result.getModel());
+        verify(customerRepository, times(1)).save(any());
+    }
+
+}
