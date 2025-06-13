@@ -1,6 +1,6 @@
 package com.carrefour.customerservice.service;
 
-import com.carrefour.customerservice.dto.CustomerDTO;
+import com.carrefour.eventData.CustomerDTO;
 
 import java.util.List;
 

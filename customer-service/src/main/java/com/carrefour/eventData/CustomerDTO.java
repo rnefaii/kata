@@ -1,4 +1,4 @@
-package com.carrefour.customerservice.dto;
+package com.carrefour.eventData;
 
 import lombok.Builder;
 import lombok.Data;

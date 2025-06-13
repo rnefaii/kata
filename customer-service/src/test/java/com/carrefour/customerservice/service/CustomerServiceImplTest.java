@@ -8,6 +8,7 @@ import com.carrefour.customerservice.model.Customer;
 import com.carrefour.customerservice.repository.CustomerRepository;
 import com.carrefour.customerservice.service.impl.CustomerServiceImpl;
 
+import com.carrefour.eventData.CustomerDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
