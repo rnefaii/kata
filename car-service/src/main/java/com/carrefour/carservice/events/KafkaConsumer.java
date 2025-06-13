@@ -1,4 +1,4 @@
-package tn.esprit.msproductquery.events;
+package com.carrefour.carservice.events;
 
 import com.carrefour.eventData.Event;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class KafkaConsumer {
 
-    private final ProductEventHandler productEventHandler;
+    private final CustomerEventHandler customerEventHandler;
     private final String topic = "customer-event-topic";
 
     @KafkaListener(topics = topic, groupId = "my-group")
@@ -20,17 +20,17 @@ public class KafkaConsumer {
 
         Event event = consumerRecord.value();
 
-        log.info("\n Consumed Event of type : {} \n published on topic at : {} \n Data value is : {}", event.type(), event.eventCreatedAt(), event.productDto() );
+        log.info("\n Consumed Event of type : {} \n published on topic at : {} \n Data value is : {}", event.type(), event.eventCreatedAt(), event.customerDto() );
 
         switch (consumerRecord.key()) {
-            case "CREATED_PRODUCT_EVENT":
-                productEventHandler.handleProductCreatedEvent(event.productDto());
+            case "CREATED_CUSTOMER_EVENT":
+                customerEventHandler.handleCustomerCreatedEvent(event.customerDto());
                 break;
-            case "UPDATED_PRODUCT_EVENT":
-                productEventHandler.handleProductUpdatedEvent(event.productDto());
+            case "UPDATED_CUSTOMER_EVENT":
+                customerEventHandler.handleCustomerUpdatedEvent(event.customerDto());
                 break;
-            case "DELETED_PRODUCT_EVENT":
-                productEventHandler.handleProductDeletedEvent(event.productDto().id());
+            case "DELETED_CUSTOMER_EVENT":
+                customerEventHandler.handleCustomerDeletedEvent(event.customerDto().id());
                 break;
             default:
                 log.info("Event ignored");
