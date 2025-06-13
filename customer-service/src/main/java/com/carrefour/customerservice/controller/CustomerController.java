@@ -1,7 +1,7 @@
 package com.carrefour.customerservice.controller;
 
-import com.carrefour.customerservice.dto.CustomerDTO;
 import com.carrefour.customerservice.service.CustomerService;
+import com.carrefour.eventData.CustomerDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

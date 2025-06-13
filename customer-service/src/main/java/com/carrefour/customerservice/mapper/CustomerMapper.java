@@ -1,7 +1,7 @@
 package com.carrefour.customerservice.mapper;
 
-import com.carrefour.customerservice.dto.CustomerDTO;
 import com.carrefour.customerservice.model.Customer;
+import com.carrefour.eventData.CustomerDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
